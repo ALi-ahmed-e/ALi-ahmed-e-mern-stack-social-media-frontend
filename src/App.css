@@ -1,38 +1,50 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.btn{
+  padding:.25rem 1rem ;
+  border-radius:0.375rem;
+  transition:.1s;
   color: white;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+.scroller::-webkit-scrollbar {
+  width: 10px;
+  height: 0px;
 }
 
-.App-link {
-  color: #61dafb;
+.scroller::-webkit-scrollbar-track {
+  border-radius: 1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.scroller::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #0a112e, #4e5266);
+  border-radius: 1rem;
+
+}
+
+.scroller::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(270deg, #0a112e, #4e5266);
+
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 1rem;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #0a112e, #4e5266);
+  border-radius: 1rem;
+
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(270deg, #0a112e, #4e5266);
+
 }
