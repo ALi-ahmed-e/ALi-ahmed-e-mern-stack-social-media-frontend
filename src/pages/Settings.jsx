@@ -82,7 +82,7 @@ const Settings = () => {
                 <div className=' flex items-center justify-center'>{user ? <>
                 <img src={user.profileImage} className=' h-32   w-32 self-center  rounded-full -mt-16  ' alt="user image" /> 
                 <label htmlFor="myfile"  className=' h-[130px] bg-black/60 b w-[130px] opacity-0 hover:opacity-100 transition-all flex items-center justify-center cursor-pointer self-center  backdrop-blur-[2px] absolute rounded-full -mt-16  ' ><FaEdit size='30' /></label>
-                <input onChange={(e) => { setfile(e.target.files[0]) }} type="file" id="myfile" name="myfile" className=' hidden' accept='.jpeg,.png,jpg' />
+                <input onChange={(e) => { setfile(e.target.files[0]) }} type="file" id="myfile" name="myfile" className=' hidden' accept='.jpeg,.png,.jpg' />
                 
                 </>: <div className=' h-32   w-32 self-center bg-slate-200 dark:bg-slate-700 animate-pulse  rounded-full -mt-16  ' alt="user image" />}</div>
 

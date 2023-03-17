@@ -8,11 +8,11 @@ const PostsList = ({ page }) => {
     const { config,user } = useSelector(state => state.Auth)
     const { userId } = useSelector(state => state.profile)
     const [posts, setposts] = useState([]);
-    // const useForceUpdate = () => {
-    //     const [value, setValue] = useState(0);
-    //     return () => setValue(value => value + 1);
-    // }
-    // const forceUpdate = useForceUpdate();
+    const useForceUpdate = () => {
+        const [value, setValue] = useState(0);
+        return () => setValue(value => value + 1);
+    }
+    const forceUpdate = useForceUpdate();
     const navigate = useNavigate()
 
     const getPosts = async () => {
@@ -36,7 +36,7 @@ const PostsList = ({ page }) => {
 
     useEffect(() => {
         config && getPosts()
-    }, [])
+    }, [page == 'profile'&&userId])
 
 
 
@@ -49,7 +49,7 @@ const PostsList = ({ page }) => {
             newposts.splice(posts.findIndex(pst => pst._id == post._id), 1)
 
             setposts(newposts)
-            // forceUpdate()
+            forceUpdate()
         } catch (error) {
             console.log(error)
         }
@@ -59,7 +59,6 @@ const PostsList = ({ page }) => {
 
     return (
         <div>
-           {/* {Add&& <AddPost />} */}
             {posts.map(post => <Post key={Math.random()} deletePost={deletePost} post={post} />)}
         </div>
     )

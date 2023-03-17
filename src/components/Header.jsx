@@ -1,7 +1,7 @@
 import { Menu, Transition } from '@headlessui/react'
 import React, { Fragment, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-// import {SlSocialFoursqare} from 'react-icons/si'
+import { FaPlus } from 'react-icons/fa'
 import { FaBars, FaSearch } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 import { setUserId } from '../store/profileSlice'
@@ -21,10 +21,10 @@ const Header = () => {
 
 
     const toggle = () => {
-        
-   
-            setaddpost(!addpost)
-     
+
+
+        setaddpost(!addpost)
+
 
     }
 
@@ -55,13 +55,6 @@ const Header = () => {
                         </div>
                         <div className="hidden sm:ml-6 sm:block">
                             <div className="flex space-x-4">
-                                {/* <Link
-                                to="/"
-                                className="dark:hover:bg-gray-900  hover:bg-slate-200 transition-all rounded-md px-3 py-2 text-sm font-medium"
-                                aria-current="page"
-                            >
-                                Home
-                            </Link> */}
 
                                 <form onSubmit={(e) => {
                                     e.preventDefault()
@@ -96,9 +89,9 @@ const Header = () => {
                     <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 
                         {/* Profile dropdown */}
-                        <div className="relative ml-3">
+                        <div className="relative ml-3 flex ">
 
-
+                            <div onClick={toggle} className=' p-1 hover:p-1 hover:bg-slate-900/60 cursor-pointer rounded-md self-center  mr-2 sm:mr-10'><FaPlus size='25' /></div>
                             <Menu as="div" className="relative inline-block text-left w-fit h-fit">
                                 <div>
                                     <Menu.Button className='flex items-center focus:outline-none'>
@@ -198,17 +191,37 @@ const Header = () => {
                     >
                         settings
                     </Link>
-                    <Link
-                        to="/add-post"
-                        className="hover:bg-gray-900/50 text-white block rounded-md px-3 py-2 text-base font-medium"
-                        aria-current="page"
-                    >
-                        Add post
-                    </Link>
+                    
+                    <form onSubmit={(e) => {
+                        e.preventDefault()
+                        dispatch(setSearch(e.target.query.value))
+                    }} className=' max-w-[400px] mx-auto' onFocus={() => navigate('/search')}>
+                        <div className="relative flex items-center justify-end">
+                            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+
+                                <FaSearch size='25' className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                            </div>
+                            <input
+                                name='query'
+                                type="search"
+                                id="default"
+                                className="block w-full p-3 pl-10 text-sm text-gray-900 border-none rounded-lg bg-gray-50 dark:bg-gray-700  dark:placeholder-gray-400 dark:text-white outline-none"
+                                placeholder="Search..."
+                                required
+                            />
+                            <button
+                                type="submit"
+                                className="text-white absolute   mr-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            >
+                                Search
+                            </button>
+                        </div>
+                    </form>
+
 
                 </div>
             </div>
-            {addpost&&<AddPost toggle={toggle} />}
+            {addpost && <AddPost toggle={toggle} />}
         </nav>
     )
 }

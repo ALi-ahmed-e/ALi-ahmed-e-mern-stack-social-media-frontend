@@ -37,7 +37,7 @@ const Profile = () => {
 
     useEffect(() => {
         getUserData()
-    }, [])
+    }, [userId])
 
     const toggleFollowUser = async () => {
         await axios.post(`https://socialmediamernapp.onrender.com/api/user/follow-user/${userId}`, "", config)
