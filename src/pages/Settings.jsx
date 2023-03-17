@@ -15,15 +15,22 @@ const Settings = () => {
     const dispatch = useDispatch()
     const { theme } = useSelector(state => state.theme)
     const [load, setload] = useState(false);
-    const [file, setfile] = useState();
+    const [profileImage, setprofileImage] = useState(null);
+
 
     const ct64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader()
-            reader.readAsDataURL(file)
-            reader.onload = () => resolve(reader.result)
-            reader.onerror = error => reject(error)
-        })
+        setload(true)
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = async () => {
+            setload(false)
+            setprofileImage(reader.result);
+        }
+        reader.onerror = function (error) {
+            setload(false)
+            console.log('Error: ', error);
+        };
+
     }
 
     const getUserData = async () => {
@@ -49,15 +56,19 @@ const Settings = () => {
         if (user) {
             setload(true)
 
-            const data = {
+            const data = profileImage?{
                 username: e.target.username.value,
                 phonenumber: e.target.phonenumber.value,
-                profileImage:file? await ct64(file):user.profileImage
+                profileImage:profileImage,
+            }:{
+                username: e.target.username.value,
+                phonenumber: e.target.phonenumber.value,
             }
-
+            
 
             try {
-                const res = await axios.put(`https://socialmediamernapp.onrender.com/api/user/update-user`, data, config)
+                console.log(data)
+                const res = await axios.put(`http://localhost:5000/api/user/update-user`, data, config)
                 dispatch(setUser({ ...res.data, token }))
                 setload(false)
             } catch (error) {
@@ -80,11 +91,11 @@ const Settings = () => {
 
 
                 <div className=' flex items-center justify-center'>{user ? <>
-                <img src={user.profileImage} className=' h-32   w-32 self-center  rounded-full -mt-16  ' alt="user image" /> 
-                <label htmlFor="myfile"  className=' h-[130px] bg-black/60 b w-[130px] opacity-0 hover:opacity-100 transition-all flex items-center justify-center cursor-pointer self-center  backdrop-blur-[2px] absolute rounded-full -mt-16  ' ><FaEdit size='30' /></label>
-                <input onChange={(e) => { setfile(e.target.files[0]) }} type="file" id="myfile" name="myfile" className=' hidden' accept='.jpeg,.png,.jpg' />
-                
-                </>: <div className=' h-32   w-32 self-center bg-slate-200 dark:bg-slate-700 animate-pulse  rounded-full -mt-16  ' alt="user image" />}</div>
+                    <img src={profileImage ? profileImage : user.profileImage} className=' h-32   w-32 self-center  rounded-full -mt-16  ' alt="user image" />
+                    <label htmlFor="myfile" className=' h-[130px] bg-black/60 b w-[130px] opacity-0 hover:opacity-100 transition-all flex items-center justify-center cursor-pointer self-center  backdrop-blur-[2px] absolute rounded-full -mt-16  ' ><FaEdit size='30' /></label>
+                    <input onChange={(e) => { ct64(e.target.files[0]) }} type="file" id="myfile" name="myfile" className=' hidden' accept='.jpeg,.png,.jpg' />
+
+                </> : <div className=' h-32   w-32 self-center bg-slate-200 dark:bg-slate-700 animate-pulse  rounded-full -mt-16  ' alt="user image" />}</div>
 
 
 
