@@ -67,8 +67,7 @@ const Settings = () => {
             
 
             try {
-                console.log(data)
-                const res = await axios.put(`http://localhost:5000/api/user/update-user`, data, config)
+                const res = await axios.put(`https://socialmediamernapp.onrender.com/api/user/update-user`, data, config)
                 dispatch(setUser({ ...res.data, token }))
                 setload(false)
             } catch (error) {

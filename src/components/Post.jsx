@@ -95,10 +95,39 @@ const Post = ({ post, deletePost }) => {
         dispatch(setUserId(id))
         navigate('/profile')
     }
+    function timeSince(date) {
+
+        var seconds = Math.floor((new Date() - date) / 1000);
+
+        var interval = seconds / 31536000;
+
+        if (interval > 1) {
+            return Math.floor(interval) + " years";
+        }
+        interval = seconds / 2592000;
+        if (interval > 1) {
+            return Math.floor(interval) + " months";
+        }
+        interval = seconds / 86400;
+        if (interval > 1) {
+            return Math.floor(interval) + " days";
+        }
+        interval = seconds / 3600;
+        if (interval > 1) {
+            return Math.floor(interval) + " hours";
+        }
+        interval = seconds / 60;
+        if (interval > 1) {
+            return Math.floor(interval) + " minutes";
+        }
+        return Math.floor(seconds) + " seconds";
+    }
+
+
 
     return (<>
         {userData &&
-            <div className="bg-white  dark:bg-slate-800 dark:text-white rounded-lg pb-5  w-[95%] max-w-[30rem] space-y-6 mt-10 mx-auto p-5 ">
+            <div className="bg-white  dark:bg-slate-800 dark:text-white rounded-lg pb-5  w-[95%] max-w-[35rem] space-y-6 mt-10 mx-auto p-5 ">
                 {/* header */}
                 <div className="flex space-x-4  justify-between items-center ">
                     <div className="flex space-x-4  cursor-pointer items-center " onClick={() => gotoProfile(post.user)}>
@@ -127,7 +156,7 @@ const Post = ({ post, deletePost }) => {
                             </svg> */}
 
                             </div>
-                            <p className=" text-xs text-slate-400">{post.createdAt}</p>
+                            <p className=" text-xs text-slate-400">{ timeSince(new Date(post.createdAt))} ago</p>
                         </div>
                     </div>
 
@@ -186,15 +215,15 @@ const Post = ({ post, deletePost }) => {
                         {post.title}
                     </p>
 
-                    {post.image&&
-                    
-                    <div className=' w-full mt-2'>
-                        <img
-                            alt={post.title}
-                            src={post.image}
-                            className="w-full  object-cover rounded-md"
-                        />
-                    </div>
+                    {post.image &&
+
+                        <div className=' w-full mt-2'>
+                            <img
+                                alt={post.title}
+                                src={post.image}
+                                className="w-full  object-cover rounded-md"
+                            />
+                        </div>
 
 
                     }

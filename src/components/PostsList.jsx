@@ -58,8 +58,9 @@ const PostsList = ({ page }) => {
 
 
     return (
-        <div>
-            {posts.map(post => <Post key={Math.random()} deletePost={deletePost} post={post} />)}
+        <div> 
+              
+           {posts.map(post => <Post key={Math.random()} deletePost={deletePost} post={post} />)}
         </div>
     )
 }

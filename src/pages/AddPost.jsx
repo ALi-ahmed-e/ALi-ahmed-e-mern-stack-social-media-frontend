@@ -16,8 +16,7 @@ const AddPost = ({ toggle }) => {
         setloader(true)
 
         try {
-            // await axios.post(`https://socialmediamernapp.onrender.com/api/posts/add-post`, {
-            await axios.post(`http://localhost:5000/api/posts/add-post`, {
+            await axios.post(`https://socialmediamernapp.onrender.com/api/posts/add-post`, {
                 title: text,
                 image,
             }, config)
